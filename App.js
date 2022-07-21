@@ -1,20 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+
+import Main from "./src/Screens/Main/index";
+import BottomBar from "./src/Components/BottomBar";
+import About from "./src/Screens/About";
+
+// Font
+import { useFonts } from "expo-font";
+
+// require in the font
+const customFonts = {
+  RalewayBold: require("./assets/fonts/Raleway-SemiBold.ttf"),
+  RalewayMedium: require("./assets/fonts/Raleway-Medium.ttf"),
+  RalewayRegular: require("./assets/fonts/Raleway-Regular.ttf"),
+  RalewaySemiBold: require("./assets/fonts/Raleway-SemiBold.ttf"),
+};
 
 export default function App() {
+  const [isLoaded] = useFonts(customFonts);
+
+  if (!isLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <Main />
+        <BottomBar />
+        {/* <About /> */}
+        <StatusBar style="light" />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "space-between",
+    backgroundColor: "#232323",
   },
 });
