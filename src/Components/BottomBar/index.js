@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: 'center',
     backgroundColor: "#fff",
+    // Rem me
     padding: 10,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
