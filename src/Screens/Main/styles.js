@@ -2,11 +2,14 @@ import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
     container: {
+      flex: 1,
       justifyContent: "space-between",
     },
     notesContainer: {
+      // flex: 1,
       marginTop: 20,
-      alignItems: "center",
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     notesHeading: {
       color: "#fff",
@@ -17,6 +20,7 @@ const styles = StyleSheet.create({
     },
     // Inputs
     inputContainer: {
+      flex:1,
       marginTop: 10,
       flexDirection: "row",
     },
@@ -53,44 +57,38 @@ const styles = StyleSheet.create({
       borderBottomRightRadius: 5,
       borderTopRightRadius: 5,
     },
-    total: {
-      fontFamily: "RalewayMedium",
-      fontSize: 20,
-      color: "#fff",
-    },
-    // Total Input Bars
+    
+    // Super Total Bottom Bar
     superTotal: {
       fontFamily: "RalewayMedium",
       fontSize: 20,
-      // color: "#fff",
       fontStyle: 'italic'
     },
   
     // Total
     totalContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+      // flexDirection: 'row',
+      // justifyContent: 'space-between',
       marginTop: 10,
-      marginRight: 45,
       marginBottom: 20,
     },
     rs: {
       fontFamily: "RalewayMedium",
-      fontStyle: "italic",
+      // fontStyle: "italic",
       fontSize: 15,
       letterSpacing: 2,
       color: "#fff",
-      marginRight: 3,
     },
     totalValue: {
       color: "white",
       fontFamily: "RalewayMedium",
     },
     line: {
-      flexDirection: "row",
       borderBottomWidth: 1,
       borderBottomColor: "#1EB24B",
-      width: 150,
+      width: 160,
+      marginVertical: 5,
+      alignSelf: 'flex-end'
     },
 
     // Bottom Bar
@@ -99,17 +97,10 @@ const styles = StyleSheet.create({
       justifyContent: "space-between",
       alignItems: 'center',
       backgroundColor: "#fff",
-      // Rem me
       padding: 10,
       borderTopLeftRadius: 10,
       borderTopRightRadius: 10,
-    },
-    total: {
-      fontFamily: "RalewayRegular",
-      fontSize: 15,
-      letterSpacing: 2,
-      fontStyle: "italic",
-      marginLeft: 5,
+      
     },
     clearBtn: {
       marginRight: 5,

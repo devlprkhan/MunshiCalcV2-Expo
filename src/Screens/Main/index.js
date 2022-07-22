@@ -67,6 +67,12 @@ export default function Main() {
     return value * pow
   }
 
+  // Function add comma in price
+  let NumberWithCommas = (value) => {
+    // regex to add comma in value
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   // Clear Inputs
   // Used to clear inputs and reset the states
   let clearInputs = () => {
@@ -109,14 +115,9 @@ export default function Main() {
   const FlatList_Footer = (totalNumOf, total) => {
     return (
       <View style={styles.totalContainer}>
-        <View style={[styles.line, { marginRight: 10 }]}>
-          <Text style={styles.rs}>Num of:</Text>
-          <Text style={styles.totalValue}>{totalNumOf}</Text>
-        </View>
-        <View style={styles.line}>
-          <Text style={styles.rs}>RS:</Text>
-          <Text style={styles.totalValue}>{total}</Text>
-        </View>
+        <Text style={styles.rs}>روپئے {NumberWithCommas(total)}</Text>
+        <View style={styles.line}></View>
+        <Text style={styles.rs}>تعداد {NumberWithCommas(totalNumOf)}</Text>
       </View>
     );
   };
@@ -131,7 +132,7 @@ export default function Main() {
           end={{ x: 1, y: 1 }}
           style={styles.priceBg}
         >
-          <Text style={styles.price}>{item.val.toLocaleString()}</Text>
+          <Text style={styles.price}>{NumberWithCommas(item.val)}</Text>
         </LinearGradient>
         <TextInput
           value={inputStates[index]}
@@ -152,7 +153,7 @@ export default function Main() {
           end={{ x: 0, y: 0 }}
           style={styles.totalBg}
         >
-          <Text style={styles.total}>{multiplier(item.val, Number(inputStates[index])) == 0 ? '0.00' : multiplier(item.val, Number(inputStates[index])).toLocaleString()}</Text>
+          <Text style={[styles.price, {fontSize: 17}]}>{multiplier(item.val, Number(inputStates[index])) == 0 ? '0.00' : NumberWithCommas(multiplier(item.val, Number(inputStates[index])))}</Text>
         </LinearGradient>
       </View>
     );
@@ -160,7 +161,7 @@ export default function Main() {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={{flex: 1}}>
         <Heading />
         <View style={styles.notesContainer}>
           {/* Flatlist to populate InputbBars for Notes */}
@@ -180,20 +181,20 @@ export default function Main() {
             ListFooterComponent={() => FlatList_Footer(totalNumOfCoins, totalCoin)}
           />
         </View>
+      </View>
 
-        <View style={styles.bottomBar}>
-          <Text style={styles.superTotal}>Total: {superTotal}</Text>
-          <Pressable onPress={clearInputs}>
-            <LinearGradient
-              colors={["#80c341", "#1eb24b"]}
-              start={{ x: 1, y: 1 }}
-              end={{ x: 0, y: 1 }}
-              style={[styles.clearBtn, styles.shadowProp]}
-            >
-              <Text style={styles.btnText}>CLEAR</Text>
-            </LinearGradient>
-          </Pressable>
-        </View>
+      <View style={styles.bottomBar}>
+        <Text style={styles.superTotal}>Total: {NumberWithCommas(superTotal)}</Text>
+        <Pressable onPress={clearInputs}>
+          <LinearGradient
+            colors={["#80c341", "#1eb24b"]}
+            start={{ x: 1, y: 1 }}
+            end={{ x: 0, y: 1 }}
+            style={[styles.clearBtn, styles.shadowProp]}
+          >
+            <Text style={styles.btnText}>CLEAR</Text>
+          </LinearGradient>
+        </Pressable>
       </View>
     </View>
   );

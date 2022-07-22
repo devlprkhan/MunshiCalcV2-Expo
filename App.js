@@ -27,9 +27,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <Main />
+        {/* <Main /> */}
         {/* <BottomBar /> */}
-        {/* <About /> */}
+        <About />
         <StatusBar style="light" />
       </SafeAreaView>
     </SafeAreaProvider>
