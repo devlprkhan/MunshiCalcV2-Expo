@@ -4,6 +4,8 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: "space-between",
+          backgroundColor: "#232323",
+
     },
     notesContainer: {
       // flex: 1,

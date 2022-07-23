@@ -2,6 +2,9 @@ import { StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
+// Navigation
+import Navigation from "./src/Navigation";
+
 import Main from "./src/Screens/Main/index";
 import BottomBar from "./src/Components/BottomBar";
 import About from "./src/Screens/About";
@@ -27,9 +30,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        {/* <Main /> */}
-        {/* <BottomBar /> */}
-        <About />
+        <Navigation />
         <StatusBar style="light" />
       </SafeAreaView>
     </SafeAreaProvider>
@@ -39,7 +40,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between",
     backgroundColor: "#232323",
   },
 });

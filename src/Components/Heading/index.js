@@ -1,8 +1,14 @@
 import React from "react";
+import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import BlobPatren from "../../../assets/patren.js";
 
+
 export default function Heading() {
+
+  // Access Screens Hook
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
@@ -14,7 +20,13 @@ export default function Heading() {
       </View>
       {/* About */}
       <BlobPatren width={76} height={80} style={[styles.blobPatren, styles.shadowProp]} />
-      <Pressable style={styles.aboutContainer}>
+      <Pressable
+        style={styles.aboutContainer}
+        onPress={() =>
+          // Go to About Screen
+          navigation.navigate('About')
+        }
+      >
         <Image
           source={require("../../../assets/icons/about.png")}
           style={styles.aboutIcon}
@@ -63,7 +75,7 @@ const styles = StyleSheet.create({
   },
   shadowProp: {
     shadowColor: '#171717',
-    shadowOffset: {width: -2, height: 4},
+    shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },

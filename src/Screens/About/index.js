@@ -6,7 +6,7 @@ import BlobPatrenWhite from "../../../assets/patrenWhite";
 // Navigation
 // import { useNavigation } from '@react-navigation/native';
 
-export default function About() {
+export default function About({navigation}) {
   // // Navigation
   // let navigation = useNavigation()
 
@@ -16,7 +16,7 @@ export default function About() {
       <Pressable
         style={styles.back}
         onPress={() => {
-          // navigation.goBack()
+          navigation.goBack()
         }}
       >
         {/* Back Icon */}

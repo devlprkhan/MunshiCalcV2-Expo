@@ -3,12 +3,13 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#232323",
   },
 
   // Back Button
   back: {
     position: "absolute",
-    top: 5,
+    top: 10,
     left: 15,
   },
   backIcon: {
