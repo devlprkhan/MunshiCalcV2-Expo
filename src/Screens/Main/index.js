@@ -7,7 +7,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import Heading from "../../Components/Heading";
 // Data
 import data from "../../../assets/data/index.json";
-import { enableExpoCliLogging } from "expo/build/logs/Logs";
 // Extract (Coins, Notes, Bonds) From Data (for FlatList)
 let coins = data[0];
 let notes = data[1];
@@ -116,36 +115,60 @@ export default function Main() {
   };
 
   // test
+  // var num = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19".split(" ");
+  // var tens = "20 30 40 50 60 70 80 90".split(" ");
+
+
+  // function number2words(n){
+  //       var digit = n % 10;
+
+  //     if (n < 100) {
+  //       return "روپئے" + n
+  //     }
+  //     else if (n < 1000) {
+  //       return (n%100 == 0? "": " " + number2words(n%100)) + "سو" + num[Math.floor(n/100)]
+  //     }
+  //     else if (n < 100000) {
+  //       return (n%1000 != 0? " " + number2words(n%1000): "") + "ہزار" + number2words(Math.floor(n/1000));
+  //     }
+  //     else if (n < 10000000) {
+  //       return (n%100000 != 0? " " + number2words(n%100000): "") + "لاکھ" + number2words(Math.floor(n/100000));
+  //     }
+  //     else if (n < 1000000000) {
+  //       return (n%10000000 != 0? " " + number2words(n%10000000): "") + "کروڑ" + number2words(Math.floor(n/10000000));
+  //     }
+  //     else if (n < 100000000000) {
+  //       return (n%1000000000 != 0? " " + number2words(n%1000000000): "") + "ارب" + number2words(Math.floor(n/1000000000));
+  //     }
+  //     else if (n < 10000000000000) {
+  //       return (n%100000000000 != 0? " " + number2words(n%100000000000): "") + "کھرب" + number2words(Math.floor(n/100000000000));
+  //     }
+
+  // }
+
   var num = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19".split(" ");
-  
-  function number2words(n){
-      if (n < 100) {
-        return n
-      }
-      else if (n < 1000) {
-        return (n%100 == 0? "": " " + number2words(n%100)) + "سو" + num[Math.floor(n/100)]
-      }
-      else if (n < 100000) {
-        return (n%1000 != 0? " " + number2words(n%1000): "") + "ہزار" + number2words(Math.floor(n/1000));
-      }
-      else if (n < 10000000) {
-        return (n%100000 != 0? " " + number2words(n%100000): "") + "لاکھ" + number2words(Math.floor(n/100000));
-      }
-      else if (n < 1000000000) {
-        return (n%10000000 != 0? " " + number2words(n%10000000): "") + "کروڑ" + number2words(Math.floor(n/10000000));
-      }
-      else if (n < 100000000000) {
-        return (n%1000000000 != 0? " " + number2words(n%1000000000): "") + "ارب" + number2words(Math.floor(n/1000000000));
-      }
-      else if (n < 10000000000000) {
-        return (n%100000000000 != 0? " " + number2words(n%100000000000): "") + "کھرب" + number2words(Math.floor(n/100000000000));
-      }
+  var tens = "20 30 40 50 60 70 80 90".split(" ");
+  // var tens = "twenty thirty forty fifty sixty seventy eighty ninety".split(" ");
+
+  function number2words(n) {
+    if (n < 20) return num[n];
+    var digit = n % 10;
+    if (n < 100) return Number(tens[~~(n / 10) - 2]) + (digit ? Number(num[digit]) : "");
+    if (n < 1000) return " سو" +num[~~(n / 100)] + (n % 100 == 0 ? "" : " " + number2words(n % 100));
+    if (n < 100000) return " ہزار" +number2words(~~(n / 1000)) + (n % 1000 != 0 ? number2words(n % 1000) : "");
+    if (n < 10000000) return " لاکھ" +number2words(~~(n / 100000)) + (n % 100000 != 0 ? number2words(n % 100000) : "");
+    if (n < 1000000000) return " کروڑ" +number2words(~~(n / 10000000)) + (n % 10000000 != 0 ? number2words(n % 10000000) : "");
+    if (n < 100000000000) return " ارب" +number2words(~~(n / 1000000000)) + (n % 1000000000 != 0 ? number2words(n % 1000000000) : "");
+    if (n < 10000000000000) return " کھرب" +number2words(~~(n / 100000000000)) + (n % 100000000000 != 0 ? number2words(n % 100000000000) : "");
+
+    // If Number is Maximum 100 ارب
+    return "Overflow"
   }
 
-
-  console.log(number2words(8078953756800));
-  // console.log(number2words(8078953756830)); //Last two word main error hain jaisay 100 rupay tak thik 100 say nichay k word main error hain
-  // console.log(number2words(10000));
+  // console.log(number2words(668793312));
+  // let wr = (number2words(668793312)+ "روپئے").split(" ")
+  let wr = (number2words(150000)+ " روپئے").split(" ")
+  console.log(wr);
   // test end
 
   // Access Function Returned Values (Return As an Array)
@@ -209,8 +232,8 @@ export default function Main() {
             {multiplier(item.val, Number(inputStates[index])) == 0
               ? "0.00"
               : NumberWithCommas(
-                  multiplier(item.val, Number(inputStates[index]))
-                )}
+                multiplier(item.val, Number(inputStates[index]))
+              )}
           </Text>
         </LinearGradient>
       </View>
@@ -232,7 +255,7 @@ export default function Main() {
           ListFooterComponent={() =>
             FlatList_Footer(totalNumOfNotes, totalNote)
           }
-          // showsVerticalScrollIndicator={false}
+        // showsVerticalScrollIndicator={false}
         />
         {/* Flatlist to populate InputbBars for Coins */}
         <FlatList
@@ -243,7 +266,7 @@ export default function Main() {
           ListFooterComponent={() =>
             FlatList_Footer(totalNumOfCoins, totalCoin)
           }
-          // showsVerticalScrollIndicator={false}
+        // showsVerticalScrollIndicator={false}
         />
       </View>
 

@@ -18,6 +18,7 @@ const customFonts = {
   RalewayMedium: require("./assets/fonts/Raleway-Medium.ttf"),
   RalewayRegular: require("./assets/fonts/Raleway-Regular.ttf"),
   RalewaySemiBold: require("./assets/fonts/Raleway-SemiBold.ttf"),
+  // AlviNastaleeq: require("./assets/fonts/Alvi Nastaleeq Regular.ttf"),
 };
 
 export default function App() {
