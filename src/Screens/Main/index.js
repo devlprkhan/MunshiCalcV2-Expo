@@ -115,61 +115,94 @@ export default function Main() {
   };
 
   // test
-  // var num = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19".split(" ");
-  // var tens = "20 30 40 50 60 70 80 90".split(" ");
 
+  // Module (Convert Numbers in to Urdu Words)
+  // This Function Takes Numbers As an Input And Return Numbers in the form of Urdu Currency Formate
+  // Variables for (number2words) function
+  let num = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19".split(" ");
+  let tens = "20 30 40 50 60 70 80 90".split(" ");
 
-  // function number2words(n){
-  //       var digit = n % 10;
-
-  //     if (n < 100) {
-  //       return "روپئے" + n
-  //     }
-  //     else if (n < 1000) {
-  //       return (n%100 == 0? "": " " + number2words(n%100)) + "سو" + num[Math.floor(n/100)]
-  //     }
-  //     else if (n < 100000) {
-  //       return (n%1000 != 0? " " + number2words(n%1000): "") + "ہزار" + number2words(Math.floor(n/1000));
-  //     }
-  //     else if (n < 10000000) {
-  //       return (n%100000 != 0? " " + number2words(n%100000): "") + "لاکھ" + number2words(Math.floor(n/100000));
-  //     }
-  //     else if (n < 1000000000) {
-  //       return (n%10000000 != 0? " " + number2words(n%10000000): "") + "کروڑ" + number2words(Math.floor(n/10000000));
-  //     }
-  //     else if (n < 100000000000) {
-  //       return (n%1000000000 != 0? " " + number2words(n%1000000000): "") + "ارب" + number2words(Math.floor(n/1000000000));
-  //     }
-  //     else if (n < 10000000000000) {
-  //       return (n%100000000000 != 0? " " + number2words(n%100000000000): "") + "کھرب" + number2words(Math.floor(n/100000000000));
-  //     }
-
-  // }
-
-  var num = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19".split(" ");
-  var tens = "20 30 40 50 60 70 80 90".split(" ");
-  // var tens = "twenty thirty forty fifty sixty seventy eighty ninety".split(" ");
-
+  // Maximum Numbers is 13 takeing by function
   function number2words(n) {
+    let digit = n % 10;
     if (n < 20) return num[n];
-    var digit = n % 10;
     if (n < 100) return Number(tens[~~(n / 10) - 2]) + (digit ? Number(num[digit]) : "");
-    if (n < 1000) return " سو" +num[~~(n / 100)] + (n % 100 == 0 ? "" : " " + number2words(n % 100));
-    if (n < 100000) return " ہزار" +number2words(~~(n / 1000)) + (n % 1000 != 0 ? number2words(n % 1000) : "");
-    if (n < 10000000) return " لاکھ" +number2words(~~(n / 100000)) + (n % 100000 != 0 ? number2words(n % 100000) : "");
-    if (n < 1000000000) return " کروڑ" +number2words(~~(n / 10000000)) + (n % 10000000 != 0 ? number2words(n % 10000000) : "");
-    if (n < 100000000000) return " ارب" +number2words(~~(n / 1000000000)) + (n % 1000000000 != 0 ? number2words(n % 1000000000) : "");
-    if (n < 10000000000000) return " کھرب" +number2words(~~(n / 100000000000)) + (n % 100000000000 != 0 ? number2words(n % 100000000000) : "");
+    if (n < 1000) return " سو" + num[~~(n / 100)] + (n % 100 == 0 ? "" : " " + number2words(n % 100));
+    if (n < 100000) return " ہزار" + number2words(~~(n / 1000)) + (n % 1000 != 0 ? number2words(n % 1000) : "");
+    if (n < 10000000) return " لاکھ" + number2words(~~(n / 100000)) + (n % 100000 != 0 ? number2words(n % 100000) : "");
+    if (n < 1000000000) return " کروڑ" + number2words(~~(n / 10000000)) + (n % 10000000 != 0 ? number2words(n % 10000000) : "");
+    if (n < 100000000000) return " ارب" + number2words(~~(n / 1000000000)) + (n % 1000000000 != 0 ? number2words(n % 1000000000) : "");
+    if (n < 10000000000000) return " کھرب" + number2words(~~(n / 100000000000)) + (n % 100000000000 != 0 ? number2words(n % 100000000000) : "");
 
-    // If Number is Maximum 100 ارب
+    // If Number is Maximum 100 ارب or Number Greater Than By 13, Like if input number length is Greater Than 13 It return "Overflow"
     return "Overflow"
   }
 
-  // console.log(number2words(668793312));
-  // let wr = (number2words(668793312)+ "روپئے").split(" ")
-  let wr = (number2words(150000)+ " روپئے").split(" ")
+  let wr = number2words(776707878)
   console.log(wr);
+
+  // test
+  // Javascript program to
+    // reverse a String
+     
+    // Reverse the letters
+    // of the word
+    function reverse(str,start,end)
+    {
+        // Temporary variable
+        // to store character
+        let temp;
+         
+         
+        while (start <= end)
+        {
+            // Swapping the first
+            // and last character
+            temp = str[start];
+            str[start]=str[end];
+            str[end]=temp;
+            start++;
+            end--;
+        }
+    }
+    // Function to reverse words
+    function reverseWords(s)
+    {
+        // Reversing individual words as
+        // explained in the first step
+        s=s.split("");
+        let start = 0;
+        for (let end = 0; end < s.length; end++)
+        {
+            // If we see a space, we
+            // reverse the previous
+            // word (word between
+            // the indexes start and end-1
+            // i.e., s[start..end-1]
+            if (s[end] == ' ')
+            {
+                reverse(s, start, end);
+                start = end + 1;
+            }
+        }
+        // Reverse the last word
+        reverse(s, start, s.length - 1);
+         
+        // Reverse the entire String
+        reverse(s, 0, s.length - 1);
+        return s.join("");
+    }
+    // Driver Code
+    var s = "i like this program very much ";
+     
+     
+    console.log(reverseWords(wr)+ "روپئے");
+    
   // test end
+
+
+  // test end
+
 
   // Access Function Returned Values (Return As an Array)
   let [totalNumOfCoins, totalCoin, totalNumOfNotes, totalNote] = getTotal();
@@ -255,7 +288,6 @@ export default function Main() {
           ListFooterComponent={() =>
             FlatList_Footer(totalNumOfNotes, totalNote)
           }
-        // showsVerticalScrollIndicator={false}
         />
         {/* Flatlist to populate InputbBars for Coins */}
         <FlatList
@@ -266,7 +298,6 @@ export default function Main() {
           ListFooterComponent={() =>
             FlatList_Footer(totalNumOfCoins, totalCoin)
           }
-        // showsVerticalScrollIndicator={false}
         />
       </View>
 
@@ -274,7 +305,7 @@ export default function Main() {
       <View style={styles.bottomBar}>
         {/* Super Total */}
         <Text style={styles.superTotal}>
-          Total: {NumberWithCommas(superTotal)}
+          Total: {number2words(superTotal)}
         </Text>
         {/* Clear Button */}
         <Pressable onPress={clearInputs}>

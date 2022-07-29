@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   superTotal: {
     fontFamily: "RalewayMedium",
     fontSize: 20,
-    fontStyle: "italic",
+    // fontStyle: "italic",
   },
 
   
