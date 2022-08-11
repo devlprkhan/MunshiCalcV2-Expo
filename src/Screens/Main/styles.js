@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
 
   // Flatlists Container
   flatlistsContainer: {
+    // flex: 1,
     marginTop: 20,
-    justifyContent: "center",
     alignItems: "center",
   },
 
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   // Total
   flatlistBottom: {
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 15,
   },
   rs: {
     fontFamily: "RalewayMedium",
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
   // RenderItem Function (Flatlist)
   // Inputs Container
   inputContainer: {
-    flex: 1,
     marginTop: 10,
     flexDirection: "row",
   },
@@ -122,6 +121,8 @@ const styles = StyleSheet.create({
   superTotal: {
     fontFamily: "RalewayMedium",
     fontSize: 20,
+    textAlign: 'left', 
+    writingDirection: 'ltr'
     // fontStyle: "italic",
   },
 

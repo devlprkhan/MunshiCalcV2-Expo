@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, FlatList, Pressable } from "react-native";
+import { Text, View, TextInput, FlatList, Pressable, ScrollView } from "react-native";
 import styles from "./styles";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -7,6 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Heading from "../../Components/Heading";
 // Data
 import data from "../../../assets/data/index.json";
+// import Input from "../../Components/Input/index";
 // Extract (Coins, Notes, Bonds) From Data (for FlatList)
 let coins = data[0];
 let notes = data[1];
@@ -114,6 +115,12 @@ export default function Main() {
     return [totalNumOfCoins, totalCoin, totalNumOfNotes, totalNote];
   };
 
+  // Access Function Returned Values (Return As an Array)
+  let [totalNumOfCoins, totalCoin, totalNumOfNotes, totalNote] = getTotal();
+  // Super Total For Bottom Bar
+  // Get (totalCoins & totalNotes) from function named as (getTotal)
+  let superTotal = Number(totalCoin) + Number(totalNote);
+
   // test
 
   // Module (Convert Numbers in to Urdu Words)
@@ -126,7 +133,7 @@ export default function Main() {
   function number2words(n) {
     let digit = n % 10;
     if (n < 20) return num[n];
-    if (n < 100) return Number(tens[~~(n / 10) - 2]) + (digit ? Number(num[digit]) : "");
+    if (n < 100) return Number(tens[~~(n / 10) - 2]) + (digit ? Number(num[digit]) : "") + " ";
     if (n < 1000) return " سو" + num[~~(n / 100)] + (n % 100 == 0 ? "" : " " + number2words(n % 100));
     if (n < 100000) return " ہزار" + number2words(~~(n / 1000)) + (n % 1000 != 0 ? number2words(n % 1000) : "");
     if (n < 10000000) return " لاکھ" + number2words(~~(n / 100000)) + (n % 100000 != 0 ? number2words(n % 100000) : "");
@@ -138,174 +145,132 @@ export default function Main() {
     return "Overflow"
   }
 
-  let wr = number2words(776707878)
-  console.log(wr);
-
-  // test
-  // Javascript program to
-    // reverse a String
-     
-    // Reverse the letters
-    // of the word
-    function reverse(str,start,end)
-    {
-        // Temporary variable
-        // to store character
-        let temp;
-         
-         
-        while (start <= end)
-        {
-            // Swapping the first
-            // and last character
-            temp = str[start];
-            str[start]=str[end];
-            str[end]=temp;
-            start++;
-            end--;
-        }
-    }
-    // Function to reverse words
-    function reverseWords(s)
-    {
-        // Reversing individual words as
-        // explained in the first step
-        s=s.split("");
-        let start = 0;
-        for (let end = 0; end < s.length; end++)
-        {
-            // If we see a space, we
-            // reverse the previous
-            // word (word between
-            // the indexes start and end-1
-            // i.e., s[start..end-1]
-            if (s[end] == ' ')
-            {
-                reverse(s, start, end);
-                start = end + 1;
-            }
-        }
-        // Reverse the last word
-        reverse(s, start, s.length - 1);
-         
-        // Reverse the entire String
-        reverse(s, 0, s.length - 1);
-        return s.join("");
-    }
-    // Driver Code
-    var s = "i like this program very much ";
-     
-     
-    console.log(reverseWords(wr)+ "روپئے");
-    
+  let wr = number2words(1202223.9).split(/\s/).reverse().join(" ")
+  // console.log(wr + "روپئے");
   // test end
 
 
-  // test end
-
-
-  // Access Function Returned Values (Return As an Array)
-  let [totalNumOfCoins, totalCoin, totalNumOfNotes, totalNote] = getTotal();
-  // Super Total For Bottom Bar
-  // Get (totalCoins & totalNotes) from function named as (getTotal)
-  let superTotal = Number(totalCoin) + Number(totalNote);
-
-  // FlatList Functions
+  // Test
   // Header
-  const FlatList_Header = (props) => {
+  let HeaderComponent = ({ title }) => {
     return (
       <View>
-        <Text style={styles.flatlistHeader}>{props}</Text>
+        <Text style={styles.flatlistHeader}>{title}</Text>
       </View>
-    );
-  };
-  // Footer
-  const FlatList_Footer = (totalNumOf, total) => {
-    return (
-      <View style={styles.flatlistBottom}>
-        <Text style={styles.rs}>روپئے {NumberWithCommas(total)}</Text>
-        <View style={styles.line}></View>
-        <Text style={styles.rs}>تعداد {NumberWithCommas(totalNumOf)}</Text>
-      </View>
-    );
-  };
-  // renderItem
-  let renderItemFunction = ({ index, item }, inputStates) => {
-    return (
-      // {/* Inputs */}
-      <View style={styles.inputContainer}>
-        <LinearGradient
-          colors={["#80c341", "#1eb24b"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.priceBg}
-        >
-          <Text style={styles.price}>{NumberWithCommas(item.val)}</Text>
-        </LinearGradient>
-        <TextInput
-          value={inputStates[index]}
-          onChangeText={(text) => {
-            if (inputStates === coinsData) {
-              setStates(index, text, coinsData);
-            } else {
-              setStates(index, text, notesData);
-            }
-          }}
-          style={styles.input}
-          keyboardType="numeric"
-          maxLength={5}
-        />
-        <LinearGradient
-          colors={["#80c341", "#1eb24b"]}
-          start={{ x: 1, y: 1 }}
-          end={{ x: 0, y: 0 }}
-          style={styles.inlineTotalBG}
-        >
-          <Text style={[styles.price, { fontSize: 17 }]}>
-            {multiplier(item.val, Number(inputStates[index])) == 0
-              ? "0.00"
-              : NumberWithCommas(
-                multiplier(item.val, Number(inputStates[index]))
-              )}
-          </Text>
-        </LinearGradient>
-      </View>
-    );
-  };
+    )
+  }
+  // Test end
 
   return (
     <View style={styles.container}>
       {/* Heading */}
       <Heading />
       {/* Flatlist's Container */}
-      <View style={styles.flatlistsContainer}>
-        {/* Flatlist to populate InputbBars for Notes */}
-        <FlatList
-          data={notes.notes}
-          renderItem={(item) => renderItemFunction(item, notesData)}
-          keyExtractor={(item) => item.id}
-          ListHeaderComponent={FlatList_Header(`BANK NOTES`)}
-          ListFooterComponent={() =>
-            FlatList_Footer(totalNumOfNotes, totalNote)
-          }
-        />
-        {/* Flatlist to populate InputbBars for Coins */}
-        <FlatList
-          data={coins.coins}
-          renderItem={(item) => renderItemFunction(item, coinsData)}
-          keyExtractor={(item) => item.id}
-          ListHeaderComponent={FlatList_Header(`COIN'S`)}
-          ListFooterComponent={() =>
-            FlatList_Footer(totalNumOfCoins, totalCoin)
-          }
-        />
-      </View>
+      <ScrollView
+        contentContainerStyle={{
+          alignItems: 'center',
+          marginTop: 10
+        }}
+      >
+        <View style={{ paddingBottom: 52 }}>
+          {/* Header Notes*/}
+          <HeaderComponent title="BANK NOTE'S" />
+          {notes.notes.map((items, index) => (
+            // {/* Inputs */}
+            <View style={styles.inputContainer} key={items.id}>
+              <LinearGradient
+                colors={["#80c341", "#1eb24b"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.priceBg}
+              >
+                <Text style={styles.price}>{NumberWithCommas(items.val)}</Text>
+              </LinearGradient>
+              <TextInput
+                value={notesData[index]}
+                onChangeText={(text) => {
+                    setStates(index, text, notesData);
+                }}
+                style={styles.input}
+                keyboardType="numeric"
+                maxLength={5}
+              />
+              <LinearGradient
+                colors={["#80c341", "#1eb24b"]}
+                start={{ x: 1, y: 1 }}
+                end={{ x: 0, y: 0 }}
+                style={styles.inlineTotalBG}
+              >
+                <Text style={[styles.price, { fontSize: 17 }]}>
+                  {multiplier(items.val, Number(notesData[index])) == 0
+                    ? "0.00"
+                    : NumberWithCommas(
+                      multiplier(items.val, Number(notesData[index]))
+                    )}
+                </Text>
+              </LinearGradient>
+            </View>
+          ))}
+          {/* Fotter Bar Notes */}
+          {/* <FooterComponent total={totalCoin} numOfItems={totalNumOfCoins} /> */}
+          <View style={styles.flatlistBottom}>
+            <Text style={styles.rs}>روپئے {NumberWithCommas(totalNote)}</Text>
+            <View style={styles.line}></View>
+            <Text style={styles.rs}>تعداد {NumberWithCommas(totalNumOfNotes)}</Text>
+          </View>
+          {/* Header Coins*/}
+          <HeaderComponent title="COIN'S" />
+          {coins.coins.map((items, index) => (
+             // {/* Inputs */}
+             <View style={styles.inputContainer} key={items.id}>
+             <LinearGradient
+               colors={["#80c341", "#1eb24b"]}
+               start={{ x: 0, y: 0 }}
+               end={{ x: 1, y: 1 }}
+               style={styles.priceBg}
+             >
+               <Text style={styles.price}>{NumberWithCommas(items.val)}</Text>
+             </LinearGradient>
+             <TextInput
+               value={coinsData[index]}
+               onChangeText={(text) => {
+                   setStates(index, text, coinsData);
+               }}
+               style={styles.input}
+               keyboardType="numeric"
+               maxLength={5}
+             />
+             <LinearGradient
+               colors={["#80c341", "#1eb24b"]}
+               start={{ x: 1, y: 1 }}
+               end={{ x: 0, y: 0 }}
+               style={styles.inlineTotalBG}
+             >
+               <Text style={[styles.price, { fontSize: 17 }]}>
+                 {multiplier(items.val, Number(coinsData[index])) == 0
+                   ? "0.00"
+                   : NumberWithCommas(
+                     multiplier(items.val, Number(coinsData[index]))
+                   )}
+               </Text>
+             </LinearGradient>
+           </View>
+          ))}
+          {/* Fotter Bar Coins */}
+          {/* <FooterComponent total={totalNote} numOfItems={totalNumOfNotes} /> */}
+          <View style={styles.flatlistBottom}>
+            <Text style={styles.rs}>روپئے {NumberWithCommas(totalCoin)}</Text>
+            <View style={styles.line}></View>
+            <Text style={styles.rs}>تعداد {NumberWithCommas(totalNumOfCoins)}</Text>
+          </View>
+        </View>
+      </ScrollView>
 
       {/* Bottom Bar */}
       <View style={styles.bottomBar}>
         {/* Super Total */}
         <Text style={styles.superTotal}>
-          Total: {number2words(superTotal)}
+          Total: {number2words(superTotal).split(/\s/).reverse().join(" ")}
         </Text>
         {/* Clear Button */}
         <Pressable onPress={clearInputs}>
