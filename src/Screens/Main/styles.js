@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
 
   // Flatlists Container
   flatlistsContainer: {
-    // flex: 1,
     marginTop: 20,
     alignItems: "center",
   },
@@ -27,12 +26,12 @@ const styles = StyleSheet.create({
   // Flatlist Bottom Components
   // Total
   flatlistBottom: {
-    marginTop: 10,
+    marginTop: 5,
     marginBottom: 15,
   },
   rs: {
-    fontFamily: "RalewayMedium",
-    fontSize: 15,
+    fontFamily: "Alvi",
+    fontSize: 18,
     letterSpacing: 2,
     color: "#fff",
   },
@@ -40,14 +39,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#1EB24B",
     width: 160,
-    marginVertical: 5,
+    marginVertical: 1,
     alignSelf: "flex-end",
   },
 
   // RenderItem Function (Flatlist)
   // Inputs Container
   inputContainer: {
-    marginTop: 10,
+    marginTop: 8,
     flexDirection: "row",
   },
 
@@ -119,11 +118,8 @@ const styles = StyleSheet.create({
 
   // Super Total Bottom Bar
   superTotal: {
-    fontFamily: "RalewayMedium",
+    fontFamily: "Alvi",
     fontSize: 20,
-    textAlign: 'left', 
-    writingDirection: 'ltr'
-    // fontStyle: "italic",
   },
 
   

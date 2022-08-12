@@ -5,10 +5,6 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 // Navigation
 import Navigation from "./src/Navigation";
 
-import Main from "./src/Screens/Main/index";
-import BottomBar from "./src/Components/BottomBar";
-import About from "./src/Screens/About";
-
 // Font
 import { useFonts } from "expo-font";
 
@@ -18,7 +14,7 @@ const customFonts = {
   RalewayMedium: require("./assets/fonts/Raleway-Medium.ttf"),
   RalewayRegular: require("./assets/fonts/Raleway-Regular.ttf"),
   RalewaySemiBold: require("./assets/fonts/Raleway-SemiBold.ttf"),
-  // AlviNastaleeq: require("./assets/fonts/Alvi Nastaleeq Regular.ttf"),
+  Alvi: require("./assets/fonts/Alvi.ttf"),
 };
 
 export default function App() {

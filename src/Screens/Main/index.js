@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, FlatList, Pressable, ScrollView } from "react-native";
+import { Text, View, TextInput, Pressable, ScrollView } from "react-native";
 import styles from "./styles";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -7,11 +7,10 @@ import { LinearGradient } from "expo-linear-gradient";
 import Heading from "../../Components/Heading";
 // Data
 import data from "../../../assets/data/index.json";
-// import Input from "../../Components/Input/index";
-// Extract (Coins, Notes, Bonds) From Data (for FlatList)
+// Extract (Coins, Notes) From Data
 let coins = data[0];
 let notes = data[1];
-// Initial Values for state's (Coins,Notes) flatlist
+// Initial Values for state's (Coins,Notes)
 const initialValuesForCoins = {
   0: "",
   1: "",
@@ -28,7 +27,7 @@ const initialValuesForNotes = {
 };
 
 export default function Main() {
-  // states
+  // States
   let [coinsData, setCoinsData] = useState(initialValuesForCoins);
   let [notesData, setNotesData] = useState(initialValuesForNotes);
 
@@ -133,7 +132,7 @@ export default function Main() {
   function number2words(n) {
     let digit = n % 10;
     if (n < 20) return num[n];
-    if (n < 100) return Number(tens[~~(n / 10) - 2]) + (digit ? Number(num[digit]) : "") + " ";
+    if (n < 100) return Number(tens[~~(n / 10) - 2]) + Number((digit ? num[digit] : ""));
     if (n < 1000) return " سو" + num[~~(n / 100)] + (n % 100 == 0 ? "" : " " + number2words(n % 100));
     if (n < 100000) return " ہزار" + number2words(~~(n / 1000)) + (n % 1000 != 0 ? number2words(n % 1000) : "");
     if (n < 10000000) return " لاکھ" + number2words(~~(n / 100000)) + (n % 100000 != 0 ? number2words(n % 100000) : "");
@@ -145,13 +144,11 @@ export default function Main() {
     return "Overflow"
   }
 
-  let wr = number2words(1202223.9).split(/\s/).reverse().join(" ")
-  // console.log(wr + "روپئے");
+  // let wr = (number2words() + " روپئے").split(" ").reverse().join(" ")
+
   // test end
 
-
-  // Test
-  // Header
+  // Header Componet for Inputs (BANK NOTE'S & COINS)
   let HeaderComponent = ({ title }) => {
     return (
       <View>
@@ -159,13 +156,12 @@ export default function Main() {
       </View>
     )
   }
-  // Test end
 
   return (
     <View style={styles.container}>
-      {/* Heading */}
+      {/* Header */}
       <Heading />
-      {/* Flatlist's Container */}
+      {/* Body */}
       <ScrollView
         contentContainerStyle={{
           alignItems: 'center',
@@ -173,10 +169,10 @@ export default function Main() {
         }}
       >
         <View style={{ paddingBottom: 52 }}>
-          {/* Header Notes*/}
+          {/* Header of Notes*/}
           <HeaderComponent title="BANK NOTE'S" />
           {notes.notes.map((items, index) => (
-            // {/* Inputs */}
+            // {/* Body of Notes */}
             <View style={styles.inputContainer} key={items.id}>
               <LinearGradient
                 colors={["#80c341", "#1eb24b"]}
@@ -189,7 +185,7 @@ export default function Main() {
               <TextInput
                 value={notesData[index]}
                 onChangeText={(text) => {
-                    setStates(index, text, notesData);
+                  setStates(index, text, notesData);
                 }}
                 style={styles.input}
                 keyboardType="numeric"
@@ -211,66 +207,64 @@ export default function Main() {
               </LinearGradient>
             </View>
           ))}
-          {/* Fotter Bar Notes */}
-          {/* <FooterComponent total={totalCoin} numOfItems={totalNumOfCoins} /> */}
+          {/* Fotter of Notes */}
           <View style={styles.flatlistBottom}>
             <Text style={styles.rs}>روپئے {NumberWithCommas(totalNote)}</Text>
             <View style={styles.line}></View>
             <Text style={styles.rs}>تعداد {NumberWithCommas(totalNumOfNotes)}</Text>
           </View>
-          {/* Header Coins*/}
+          {/* Header of Coins*/}
           <HeaderComponent title="COIN'S" />
+          {/* Body of Coins */}
           {coins.coins.map((items, index) => (
-             // {/* Inputs */}
-             <View style={styles.inputContainer} key={items.id}>
-             <LinearGradient
-               colors={["#80c341", "#1eb24b"]}
-               start={{ x: 0, y: 0 }}
-               end={{ x: 1, y: 1 }}
-               style={styles.priceBg}
-             >
-               <Text style={styles.price}>{NumberWithCommas(items.val)}</Text>
-             </LinearGradient>
-             <TextInput
-               value={coinsData[index]}
-               onChangeText={(text) => {
-                   setStates(index, text, coinsData);
-               }}
-               style={styles.input}
-               keyboardType="numeric"
-               maxLength={5}
-             />
-             <LinearGradient
-               colors={["#80c341", "#1eb24b"]}
-               start={{ x: 1, y: 1 }}
-               end={{ x: 0, y: 0 }}
-               style={styles.inlineTotalBG}
-             >
-               <Text style={[styles.price, { fontSize: 17 }]}>
-                 {multiplier(items.val, Number(coinsData[index])) == 0
-                   ? "0.00"
-                   : NumberWithCommas(
-                     multiplier(items.val, Number(coinsData[index]))
-                   )}
-               </Text>
-             </LinearGradient>
-           </View>
+            // {/* Inputs */}
+            <View style={styles.inputContainer} key={items.id}>
+              <LinearGradient
+                colors={["#80c341", "#1eb24b"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.priceBg}
+              >
+                <Text style={styles.price}>{NumberWithCommas(items.val)}</Text>
+              </LinearGradient>
+              <TextInput
+                value={coinsData[index]}
+                onChangeText={(text) => {
+                  setStates(index, text, coinsData);
+                }}
+                style={styles.input}
+                keyboardType="numeric"
+                maxLength={5}
+              />
+              <LinearGradient
+                colors={["#80c341", "#1eb24b"]}
+                start={{ x: 1, y: 1 }}
+                end={{ x: 0, y: 0 }}
+                style={styles.inlineTotalBG}
+              >
+                <Text style={[styles.price, { fontSize: 17 }]}>
+                  {multiplier(items.val, Number(coinsData[index])) == 0
+                    ? "0.00"
+                    : NumberWithCommas(
+                      multiplier(items.val, Number(coinsData[index]))
+                    )}
+                </Text>
+              </LinearGradient>
+            </View>
           ))}
-          {/* Fotter Bar Coins */}
-          {/* <FooterComponent total={totalNote} numOfItems={totalNumOfNotes} /> */}
+          {/* Fotter of Coins */}
           <View style={styles.flatlistBottom}>
             <Text style={styles.rs}>روپئے {NumberWithCommas(totalCoin)}</Text>
-            <View style={styles.line}></View>
+            <View style={[styles.line, {width: 120}]}></View>
             <Text style={styles.rs}>تعداد {NumberWithCommas(totalNumOfCoins)}</Text>
           </View>
         </View>
       </ScrollView>
-
-      {/* Bottom Bar */}
+      {/* Footer */}
       <View style={styles.bottomBar}>
         {/* Super Total */}
         <Text style={styles.superTotal}>
-          Total: {number2words(superTotal).split(/\s/).reverse().join(" ")}
+          Total: {superTotal > 0 ? (number2words(superTotal) + " روپئے").split(" ").reverse().join(" ") : "0" }
         </Text>
         {/* Clear Button */}
         <Pressable onPress={clearInputs}>
