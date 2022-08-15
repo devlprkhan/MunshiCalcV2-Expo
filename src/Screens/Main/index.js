@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Text, View, TextInput, Pressable, ScrollView } from "react-native";
 import styles from "./styles";
 import { LinearGradient } from "expo-linear-gradient";
+import DropShadow from "react-native-drop-shadow";
+
 
 // Components
 import Heading from "../../Components/Heading";
@@ -32,12 +34,12 @@ export default function Main() {
   let [notesData, setNotesData] = useState(initialValuesForNotes);
 
   // Multiply results
-  // This is for Coins input bar's (inline results)
+  // This is for Coins input bar's (inline multiplication results)
   const [v5] = useState(() => (value) => 5 * value);
   const [v2] = useState(() => (value) => 2 * value);
   const [v1] = useState(() => (value) => 1 * value);
 
-  // This is for Notes input bar's (inline results)
+  // This is for Notes input bar's (inline multiplication results)
   const [v5000] = useState(() => (value) => 5000 * value);
   const [v1000] = useState(() => (value) => 1000 * value);
   const [v500] = useState(() => (value) => 500 * value);
@@ -120,8 +122,6 @@ export default function Main() {
   // Get (totalCoins & totalNotes) from function named as (getTotal)
   let superTotal = Number(totalCoin) + Number(totalNote);
 
-  // test
-
   // Module (Convert Numbers in to Urdu Words)
   // This Function Takes Numbers As an Input And Return Numbers in the form of Urdu Currency Formate
   // Variables for (number2words) function
@@ -144,15 +144,11 @@ export default function Main() {
     return "Overflow"
   }
 
-  // let wr = (number2words() + " روپئے").split(" ").reverse().join(" ")
-
-  // test end
-
   // Header Componet for Inputs (BANK NOTE'S & COINS)
   let HeaderComponent = ({ title }) => {
     return (
       <View>
-        <Text style={styles.flatlistHeader}>{title}</Text>
+        <Text style={styles.header}>{title}</Text>
       </View>
     )
   }
@@ -168,9 +164,11 @@ export default function Main() {
           marginTop: 10
         }}
       >
-        <View style={{ paddingBottom: 52 }}>
+        <View style={{ paddingBottom: 53 }}>
+
           {/* Header of Notes*/}
           <HeaderComponent title="BANK NOTE'S" />
+          {/* Body of Notes */}
           {notes.notes.map((items, index) => (
             // {/* Body of Notes */}
             <View style={styles.inputContainer} key={items.id}>
@@ -208,11 +206,13 @@ export default function Main() {
             </View>
           ))}
           {/* Fotter of Notes */}
-          <View style={styles.flatlistBottom}>
+          <View style={styles.footer}>
             <Text style={styles.rs}>روپئے {NumberWithCommas(totalNote)}</Text>
             <View style={styles.line}></View>
             <Text style={styles.rs}>تعداد {NumberWithCommas(totalNumOfNotes)}</Text>
           </View>
+
+
           {/* Header of Coins*/}
           <HeaderComponent title="COIN'S" />
           {/* Body of Coins */}
@@ -253,13 +253,15 @@ export default function Main() {
             </View>
           ))}
           {/* Fotter of Coins */}
-          <View style={styles.flatlistBottom}>
+          <View style={styles.footer}>
             <Text style={styles.rs}>روپئے {NumberWithCommas(totalCoin)}</Text>
             <View style={[styles.line, {width: 120}]}></View>
             <Text style={styles.rs}>تعداد {NumberWithCommas(totalNumOfCoins)}</Text>
           </View>
         </View>
       </ScrollView>
+
+
       {/* Footer */}
       <View style={styles.bottomBar}>
         {/* Super Total */}
@@ -267,16 +269,29 @@ export default function Main() {
           Total: {superTotal > 0 ? (number2words(superTotal) + " روپئے").split(" ").reverse().join(" ") : "0" }
         </Text>
         {/* Clear Button */}
+        <DropShadow
+      style={{
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 0,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 5,
+      }}
+    >
+
         <Pressable onPress={clearInputs}>
           <LinearGradient
             colors={["#80c341", "#1eb24b"]}
             start={{ x: 1, y: 1 }}
             end={{ x: 0, y: 1 }}
             style={[styles.clearBtn, styles.shadowProp]}
-          >
+            >
             <Text style={styles.btnText}>CLEAR</Text>
           </LinearGradient>
         </Pressable>
+            </DropShadow>
       </View>
     </View>
   );

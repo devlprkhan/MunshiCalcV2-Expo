@@ -8,14 +8,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#232323",
   },
 
-  // Flatlists Container
-  flatlistsContainer: {
-    marginTop: 20,
-    alignItems: "center",
-  },
-
-  // Flatlist Header Components
-  flatlistHeader: {
+  // Header Components
+  header: {
     color: "#fff",
     letterSpacing: 5,
     fontFamily: "RalewayRegular",
@@ -23,9 +17,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  // Flatlist Bottom Components
+  // Footer Components
   // Total
-  flatlistBottom: {
+  footer: {
     marginTop: 5,
     marginBottom: 15,
   },
@@ -43,7 +37,6 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
 
-  // RenderItem Function (Flatlist)
   // Inputs Container
   inputContainer: {
     marginTop: 8,
@@ -98,7 +91,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#fff",
-    padding: 10,
+    padding: 5,
     // Top Curves
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,

@@ -3,12 +3,7 @@ import styles from "./styles";
 import BlobPatren from "../../../assets/patren.js";
 import BlobPatrenWhite from "../../../assets/patrenWhite";
 
-// Navigation
-// import { useNavigation } from '@react-navigation/native';
-
 export default function About({navigation}) {
-  // // Navigation
-  // let navigation = useNavigation()
 
   return (
     <View style={styles.container}>
