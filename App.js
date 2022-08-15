@@ -10,10 +10,10 @@ import { useFonts } from "expo-font";
 
 // require in the font
 const customFonts = {
-  RalewayBold: require("./assets/fonts/Raleway-SemiBold.ttf"),
+  RalewayBold: require("./assets/fonts/Raleway-Bold.ttf"),
+  RalewaySemiBold: require("./assets/fonts/Raleway-SemiBold.ttf"),
   RalewayMedium: require("./assets/fonts/Raleway-Medium.ttf"),
   RalewayRegular: require("./assets/fonts/Raleway-Regular.ttf"),
-  RalewaySemiBold: require("./assets/fonts/Raleway-SemiBold.ttf"),
   Alvi: require("./assets/fonts/Alvi.ttf"),
 };
 

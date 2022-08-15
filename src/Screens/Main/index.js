@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Text, View, TextInput, Pressable, ScrollView } from "react-native";
 import styles from "./styles";
 import { LinearGradient } from "expo-linear-gradient";
-import DropShadow from "react-native-drop-shadow";
-
 
 // Components
 import Heading from "../../Components/Heading";
@@ -268,19 +266,8 @@ export default function Main() {
         <Text style={styles.superTotal}>
           Total: {superTotal > 0 ? (number2words(superTotal) + " روپئے").split(" ").reverse().join(" ") : "0" }
         </Text>
-        {/* Clear Button */}
-        <DropShadow
-      style={{
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 0,
-        },
-        shadowOpacity: 1,
-        shadowRadius: 5,
-      }}
-    >
 
+        {/* Clear Button */}
         <Pressable onPress={clearInputs}>
           <LinearGradient
             colors={["#80c341", "#1eb24b"]}
@@ -291,7 +278,6 @@ export default function Main() {
             <Text style={styles.btnText}>CLEAR</Text>
           </LinearGradient>
         </Pressable>
-            </DropShadow>
       </View>
     </View>
   );
