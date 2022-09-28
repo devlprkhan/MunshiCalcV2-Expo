@@ -30,7 +30,7 @@ export default function Main() {
   // States
   let [coinsData, setCoinsData] = useState(initialValuesForCoins);
   let [notesData, setNotesData] = useState(initialValuesForNotes);
-
+  
   // Multiply results
   // This is for Coins input bar's (inline multiplication results)
   const [v5] = useState(() => (value) => 5 * value);
@@ -59,7 +59,7 @@ export default function Main() {
         [index]: text,
       });
     }
-  };
+  };  
 
   // Multiplier Function to multiply input values
   let multiplier = (value, pow) => {
@@ -122,24 +122,36 @@ export default function Main() {
 
   // Module (Convert Numbers in to Urdu Words)
   // This Function Takes Numbers As an Input And Return Numbers in the form of Urdu Currency Formate
-  // Variables for (number2words) function
-  let num = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19".split(" ");
-  let tens = "20 30 40 50 60 70 80 90".split(" ");
+  // Maximum Numbers is 9 takeing by function
+  function numbersToUrdu(num) {
 
-  // Maximum Numbers is 13 takeing by function
-  function number2words(n) {
-    let digit = n % 10;
-    if (n < 20) return num[n];
-    if (n < 100) return Number(tens[~~(n / 10) - 2]) + Number((digit ? num[digit] : ""));
-    if (n < 1000) return " سو" + num[~~(n / 100)] + (n % 100 == 0 ? "" : " " + number2words(n % 100));
-    if (n < 100000) return " ہزار" + number2words(~~(n / 1000)) + (n % 1000 != 0 ? number2words(n % 1000) : "");
-    if (n < 10000000) return " لاکھ" + number2words(~~(n / 100000)) + (n % 100000 != 0 ? number2words(n % 100000) : "");
-    if (n < 1000000000) return " کروڑ" + number2words(~~(n / 10000000)) + (n % 10000000 != 0 ? number2words(n % 10000000) : "");
-    if (n < 100000000000) return " ارب" + number2words(~~(n / 1000000000)) + (n % 1000000000 != 0 ? number2words(n % 1000000000) : "");
-    if (n < 10000000000000) return " کھرب" + number2words(~~(n / 100000000000)) + (n % 100000000000 != 0 ? number2words(n % 100000000000) : "");
+    // Regex to only Allow Numbers otherwise remove it
+    let onlyNumbers = num.toString().replace(/[^0-9 ]/g, '');
 
-    // If Number is Maximum 100 ارب or Number Greater Than By 13, Like if input number length is Greater Than 13 It return "Overflow"
-    return "Overflow"
+    // Arrays to get vales from here
+    const digit = ['', '1 ', '2 ', '3 ', '4 ', '5 ', '6 ', '7 ', '8 ', '9 ', '10 ', '11 ', '12 ', '13 ', '14 ', '15 ', '16 ', '17 ', '18 ', '19 '];
+    const tens = ['', '', '20', '30', '40', '50', '60', '70', '80', '90'];
+
+    // If Numbers length Greater Than 9 return overflow
+    if ((onlyNumbers = onlyNumbers.toString()).length > 9) return 'overflow';
+
+    // Make an array of price and store data into saperate indexes
+    let numToArray = ('000000000' + onlyNumbers).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+
+    // if 'numToArray' is empty return empty
+    if (!numToArray) return;
+
+    // Make an variable to store converted value
+    let covertedValue = '';
+
+    // Store data into covertedValue (if single didgit figure get data from corresponding array) or (if double digit figure plus the data which is comes from two different arraya)
+    covertedValue += (numToArray[1] != 0) ? 'کروڑ' + (digit[Number(numToArray[1])] || Number(tens[numToArray[1][0]]) + Number(digit[numToArray[1][1]])) + " " : '';
+    covertedValue += (numToArray[2] != 0) ? 'لاکھ' + (digit[Number(numToArray[2])] || Number(tens[numToArray[2][0]]) + Number(digit[numToArray[2][1]])) + " " : '';
+    covertedValue += (numToArray[3] != 0) ? 'ہزار' + (digit[Number(numToArray[3])] || Number(tens[numToArray[3][0]]) + Number(digit[numToArray[3][1]])) + " " : '';
+    covertedValue += (numToArray[4] != 0) ? 'سو' + (digit[Number(numToArray[4])] || Number(tens[numToArray[4][0]]) + Number(digit[numToArray[4][1]])) : '';
+    covertedValue += (numToArray[5] != 0) ? 'روپئے' + (digit[Number(numToArray[5])] || Number(tens[numToArray[5][0]]) + Number(digit[numToArray[5][1]])) : '';
+
+    return covertedValue;
   }
 
   // Header Componet for Inputs (BANK NOTE'S & COINS)
@@ -161,6 +173,7 @@ export default function Main() {
           alignItems: 'center',
           marginTop: 10
         }}
+        showsVerticalScrollIndicator={false}
       >
         <View style={{ paddingBottom: 53 }}>
 
@@ -179,11 +192,11 @@ export default function Main() {
                 <Text style={styles.price}>{NumberWithCommas(items.val)}</Text>
               </LinearGradient>
               <TextInput
-                value={notesData[index]}
-                onChangeText={(text) => {
-                  setStates(index, text, notesData);
-                }}
                 style={styles.input}
+                value={notesData[index]}
+                autoFocus={true}
+                onChangeText={(text) => {
+                  setStates(index, text, notesData);}}
                 keyboardType="numeric"
                 maxLength={5}
               />
@@ -253,7 +266,7 @@ export default function Main() {
           {/* Fotter of Coins */}
           <View style={styles.footer}>
             <Text style={styles.rs}>روپئے {NumberWithCommas(totalCoin)}</Text>
-            <View style={[styles.line, {width: 120}]}></View>
+            <View style={[styles.line, { width: 120 }]}></View>
             <Text style={styles.rs}>تعداد {NumberWithCommas(totalNumOfCoins)}</Text>
           </View>
         </View>
@@ -264,7 +277,8 @@ export default function Main() {
       <View style={styles.bottomBar}>
         {/* Super Total */}
         <Text style={styles.superTotal}>
-          Total: {superTotal > 0 ? (number2words(superTotal) + " روپئے").split(" ").reverse().join(" ") : "0" }
+        {/* Get Converted Result from numbersToUrdu() function and reverse it and then remove extra white space and then again join together to get urdu Currency Formate */}
+          Total: {superTotal > 0 ? numbersToUrdu(superTotal).split(" ").reverse().join(" ").replace(/\s+/g, ' ').trim() : "0"}
         </Text>
 
         {/* Clear Button */}
@@ -273,8 +287,8 @@ export default function Main() {
             colors={["#80c341", "#1eb24b"]}
             start={{ x: 1, y: 1 }}
             end={{ x: 0, y: 1 }}
-            style={[styles.clearBtn, styles.shadowProp]}
-            >
+            style={styles.clearBtn}
+          >
             <Text style={styles.btnText}>CLEAR</Text>
           </LinearGradient>
         </Pressable>

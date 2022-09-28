@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -10,11 +10,11 @@ import { useFonts } from "expo-font";
 
 // require in the font
 const customFonts = {
+  Alvi: require("./assets/fonts/Alvi.ttf"),
+  RalewayRegular: require("./assets/fonts/Raleway-Regular.ttf"),
+  RalewayMedium: require("./assets/fonts/Raleway-Medium.ttf"),
   RalewayBold: require("./assets/fonts/Raleway-Bold.ttf"),
   RalewaySemiBold: require("./assets/fonts/Raleway-SemiBold.ttf"),
-  RalewayMedium: require("./assets/fonts/Raleway-Medium.ttf"),
-  RalewayRegular: require("./assets/fonts/Raleway-Regular.ttf"),
-  Alvi: require("./assets/fonts/Alvi.ttf"),
 };
 
 export default function App() {

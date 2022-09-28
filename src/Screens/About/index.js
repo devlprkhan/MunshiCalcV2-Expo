@@ -1,7 +1,7 @@
 import { Text, View, Image, Pressable } from "react-native";
 import styles from "./styles";
+// DP Patrens (About Page DP)
 import BlobPatren from "../../../assets/patren.js";
-import BlobPatrenWhite from "../../../assets/patrenWhite";
 
 export default function About({navigation}) {
 
@@ -25,8 +25,6 @@ export default function About({navigation}) {
         {/* DP */}
         <View>
           {/* SVG BLOB */}
-          <BlobPatren width={174.46} height={183.64} style={[styles.dpBlob]} />
-          <BlobPatrenWhite width={172.74} height={183.64} style={[styles.dpBlob2]} />
           <Image
             source={require("./../../../assets/DP.png")}
             style={styles.image}

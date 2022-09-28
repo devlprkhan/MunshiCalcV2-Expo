@@ -33,12 +33,8 @@ const styles = StyleSheet.create({
     marginVertical: 100,
   },
   image: {
-    height: 180,
+    height: 220,
     width: 220,
-    position: 'absolute',
-    top: 5,
-    left: -35,
-    zIndex: 101
   },
   dpBlob: {
     transform: [{ rotate: "40deg" }],
